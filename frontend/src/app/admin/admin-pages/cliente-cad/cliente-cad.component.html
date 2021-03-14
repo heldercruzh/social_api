@@ -1,0 +1,195 @@
+<div class="card bg-light shadow border-0">
+    <h4 class="card-header bg-transparent pb-3">
+      <i class="fas fa-user-plus"></i>
+      <b> Cadastrar Clientes</b>
+    </h4>
+    <div class="card-body bg-transparent pb-3">
+    <form [formGroup]="clienteForm" autocomplete="off" (ngSubmit)="onSubmit()">
+       <div class="form-row">
+         <div class="col-md-6 mb-3">
+            <label for="nome">*Nome:</label>
+            <input type="text" formControlName="nome" id="nome" class="form-control" autofocus 
+            [ngClass]="{ 'is-invalid': f.nome.errors && (f.nome.dirty || f.nome.touched)}" />
+               <div *ngIf="f.nome.errors && (f.nome.dirty || f.nome.touched)" class="invalid-feedback">
+                 <div *ngIf="f.nome.errors.required">O Nome é obrigatório</div>
+                 <div *ngIf="f.nome.errors.minLength || f.nome.errors.maxLength">O Nome deve ter entre 3 a 100 caracteres</div>
+               </div>
+          </div>
+          <div class="col-md-3 mb-3"> 
+        
+            <label for="dataNascimento">*Data de Nascimento:</label>
+            <input type="date" formControlName="dataNascimento" id="dataNascimento" class="form-control"            
+            [ngClass]="{ 'is-invalid': f.dataNascimento.errors && (f.dataNascimento.dirty || f.dataNascimento.touched)}" />
+               <div *ngIf="f.dataNascimento.errors && (f.dataNascimento.dirty || f.dataNascimento.touched)" class="invalid-feedback">
+                 <div *ngIf="f.dataNascimento.errors.required">O Data de Nascimento é obrigatório</div>
+               </div>
+               
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="form-group">
+              <label for="genero" class="mb-1">Gênero:</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="genero" id="generoMasculino" [value]=true
+                [ngClass]="{ 'is-invalid': f.genero.invalid && (f.genero.dirty || f.genero.touched)}" />
+                <label class="form-check-label" for="generoMasculino">
+                  Masculino
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="genero" id="generoFeminino" [value]=false
+                [ngClass]="{ 'is-invalid': f.genero.invalid && (f.genero.dirty || f.genero.touched)}" />
+                <label class="form-check-label" for="generoFeminino">
+                  Feminino
+                </label>
+                <div *ngIf="f.genero.invalid && (f.genero.dirty || f.genero.touched)" class="invalid-feedback">
+                <div *ngIf="f.genero.invalid">A data de nascimento é obrigatória</div>
+              </div>
+              </div>
+            </div>
+          </div>
+       </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="telefone">*Telefone:</label>
+            <input type="text" formControlName="telefone" id="telefone" class="form-control" [textMask]="{mask: telefoneMask}" 
+            [ngClass]="{ 'is-invalid': f.telefone.errors && (f.telefone.dirty || f.telefone.touched)}" />
+            <div *ngIf="f.telefone.errors && (f.telefone.dirty || f.telefone.touched)" class="invalid-feedback">
+              <div *ngIf="f.telefone.errors.required">O telefone é obrigatório</div>
+              <div *ngIf="f.telefone.errors.pattern">O telefone está invalido</div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="rg">*Celular:</label>
+            <input type="text" formControlName="celular" id="celular" class="form-control" [textMask]="{mask: telefoneMask}"
+            [ngClass]="{ 'is-invalid': f.celular.errors && (f.celular.dirty || f.celular.touched)}" />
+            <div *ngIf="f.celular.errors && (f.celular.dirty || f.celular.touched)" class="invalid-feedback">
+              <div *ngIf="f.celular.errors.required">O celular é obrigatório</div>
+              <div *ngIf="f.celular.errors.pattern">O celular está invalido</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="rg">*CPF:</label>
+            <input type="text" formControlName="cpf" id="cpf" class="form-control" [textMask]="{mask: cpfMask}" 
+              [ngClass]="{ 'is-invalid': f.cpf.errors && (f.cpf.dirty || f.cpf.touched)}" />
+              <div *ngIf="f.cpf.errors && (f.cpf.dirty || f.cpf.touched)" class="invalid-feedback">
+                <div *ngIf="f.cpf.errors.required">O CPF é obrigatório</div>
+                <div *ngIf="f.cpf.errors.pattern">O CPF está invalido</div>
+              </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="rg">*RG:</label>
+            <input type="number" formControlName="rg" id="rg" class="form-control" 
+               [ngClass]="{ 'is-invalid': f.rg.errors && (f.rg.dirty || f.rg.touched)}" />
+               <div *ngIf="f.rg.errors && (f.rg.dirty || f.rg.touched)" class="invalid-feedback">
+                 <div *ngIf="f.rg.errors.required">O RG é obrigatório</div>
+                 <div *ngIf="f.rg.errors.minLength || f.rg.errors.maxLength">O RG deve ter entre 3 a 100 caracteres</div>
+               </div>
+          </div> 
+          <div class="col-md-3 mb-3" formGroupName="ssp">
+            <label for="ssp">*SSP:</label>
+            <select id="ssp" formControlName="id" class="form-control"
+              [ngClass]="{ 'is-invalid': f.ssp.invalid && (f.ssp.dirty || f.ssp.touched)}">
+              <option [value]=null disabled>--Selecione--</option>
+              <option *ngFor="let ssp of ufs | async" value= {{ssp.id}}> {{ssp.uf}} </option>
+            </select>
+            <div *ngIf="f.ssp.invalid && (f.ssp.dirty || f.ssp.touched)" class="invalid-feedback">
+             <div *ngIf="f.ssp.invalid">A SSP é obrigatório</div>
+           </div>
+          </div>
+        </div>
+       <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label for="rg">*CEP:</label>
+              <input type="text" formControlName="cep" id="cep" class="form-control" [textMask]="{mask: cepMask}"
+              [ngClass]="{ 'is-invalid': f.cep.errors && (f.cep.dirty || f.cep.touched)}" />
+              <div *ngIf="f.cep.errors && (f.cep.dirty || f.cep.touched)" class="invalid-feedback">
+                <div *ngIf="f.cep.errors.required">O CEP é obrigatório</div>
+                <div *ngIf="f.cep.errors.pattern">O CEP está invalido</div>
+              </div>
+            </div> 
+           <div class="col-md-3 mb-3">
+             <label for="uf">*UF:</label>
+             <select id="uf" class="form-control" formControlName="uf" (change)="buscarMunicipiosPorUF(f.uf.value)"
+             [ngClass]="{ 'is-invalid': f.uf.invalid && (f.uf.dirty || f.uf.touched)}">
+              <option [value]=null disabled>--</option>
+              <option *ngFor="let uf of ufs | async" value= {{uf.id}}> {{uf.uf}} </option>
+              </select>
+              <div *ngIf="f.uf.invalid && (f.uf.dirty || f.uf.touched)" class="invalid-feedback">
+                <div *ngIf="f.uf.invalid">A UF é obrigatória</div>
+              </div>
+           </div> 
+           <div class="col-md-3 mb-3" formGroupName="municipio">
+            <label for="municipio">*Município:</label>
+            <select id="municipio" formControlName="id" class="form-control"
+              [ngClass]="{ 'is-invalid': f.municipio.invalid && (f.municipio.dirty || f.municipio.touched)}">
+              <option [value]=null disabled>--Selecione--</option>
+              <option *ngFor="let municipio of municipiosFiltrados" value= {{municipio.id}}> {{municipio.nomeMunicipio}} </option>
+            </select>
+            <div *ngIf="f.municipio.invalid && (f.municipio.dirty || f.municipio.touched)" class="invalid-feedback">
+             <div *ngIf="f.municipio.invalid">A Município é obrigatório</div>
+           </div>
+         </div>       
+            <div class="col-md-4 mb-3">
+              <label for="rg">*Bairro:</label>
+              <input type="text" formControlName="bairro" id="bairro" class="form-control" 
+               [ngClass]="{ 'is-invalid': f.bairro.errors && (f.bairro.dirty || f.bairro.touched)}" />
+              <div *ngIf="f.bairro.errors && (f.bairro.dirty || f.bairro.touched)" class="invalid-feedback">
+                <div *ngIf="f.bairro.errors.required">O Bairro é obrigatório</div>
+                <div *ngIf="f.bairro.errors.minLength || f.bairro.errors.maxLength">O Bairro deve ter entre 3 a 100 caracteres</div>
+              </div>
+            </div>
+         </div>
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="rg">*Endereço:</label>
+            <input type="text" formControlName="endereco" id="endereco" class="form-control" 
+              [ngClass]="{ 'is-invalid': f.endereco.errors && (f.endereco.dirty || f.endereco.touched) }" />
+            <div *ngIf="f.endereco.errors && (f.endereco.dirty || f.endereco.touched)" class="invalid-feedback">
+              <div *ngIf="f.endereco.errors.required">O Endereço é obrigatório</div>
+              <div *ngIf="f.endereco.errors.minLength || f.endereco.errors.maxLength">O Endereço deve ter entre 3 a 100 caracteres</div>
+            </div>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label for="rg">*Número:</label>
+            <input type="number" formControlName="numero" id="numero" class="form-control" 
+              [ngClass]="{ 'is-invalid': f.numero.errors && (f.numero.dirty || f.numero.touched)}" />
+              <div *ngIf="f.numero.errors && (f.numero.dirty || f.numero.touched)" class="invalid-feedback">
+                <div *ngIf="f.numero.errors.required">O Nº é obrigatório</div>
+                <div *ngIf="f.numero.errors.minLength || f.numero.errors.maxLength">O Nº deve ter entre 1 a 100 caracteres</div>
+              </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="rg">Complemento:</label>
+            <input type="text" formControlName="complemento" id="complemento" class="form-control" 
+              [ngClass]="{ 'is-invalid': f.complemento.errors }" />
+          </div>
+        </div>
+        <div formGroupName="usuario">
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="email">*Email:</label>
+            <input type="text" formControlName="email" id="email" class="form-control" 
+              [ngClass]="{ 'is-invalid': f.usuario.get('email')?.errors && (f.usuario.get('email')?.dirty || f.usuario.get('email')?.touched)}" />
+            <div *ngIf="f.usuario.get('email')?.errors && (f.usuario.get('email')?.dirty || f.usuario.get('email')?.touched)" class="invalid-feedback">
+              <div *ngIf="f.usuario.get('email')?.errors?.required">O email é obrigatório</div>
+              <div *ngIf="f.usuario.get('email')?.errors?.pattern">O email está invalido</div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="telefone">*Senha:</label>
+            <input type="password" formControlName="senha" id="senha" class="form-control" 
+               [ngClass]="{ 'is-invalid': f.usuario.get('senha')?.errors && (f.usuario.get('senha')?.dirty || f.usuario.get('senha')?.touched)}" />
+               <div *ngIf="f.usuario.get('senha')?.errors && (f.usuario.get('senha')?.dirty || f.usuario.get('senha')?.touched)" class="invalid-feedback">
+                <div *ngIf="f.usuario.get('senha')?.errors?.required">A senha é obrigatória</div>         
+              </div>
+          </div>     
+          </div>
+         </div>
+        <div class="form-group">
+          <button [disabled]="loading && clienteForm.invalid"  class="btn btn-dark shadow border-0 my-4">Salvar</button>
+        </div>
+      </form> 
+    </div>
+  </div>

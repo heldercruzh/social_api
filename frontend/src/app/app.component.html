@@ -1,0 +1,13 @@
+
+<!-- Top navbar -->
+<app-admin-navbar *ngIf="isLoggedIn"></app-admin-navbar>
+
+<!-- main app container -->
+<div class="container mt-4">
+  <!-- Pages/Auth -->
+  <router-outlet></router-outlet>
+
+</div>
+
+ <!-- Footer -->
+ <app-admin-footer *ngIf="isLoggedIn"></app-admin-footer>

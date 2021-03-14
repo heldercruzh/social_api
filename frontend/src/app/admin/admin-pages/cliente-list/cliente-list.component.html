@@ -1,0 +1,112 @@
+<div class="card bg-light shadow border-0">  
+    <h4 class="card-header bg-transparent pb-3">
+      <i class="fas fa-users"></i>
+      <b> Lista de Clientes</b>
+    </h4>
+    <div class="card-body bg-transparent pb-3">
+      <div class="form-row">
+      <form [formGroup]="clienteForm" autocomplete="off" (ngSubmit)="consultar()">
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="rg">CPF:</label>
+            <input type="text" formControlName="cpf" id="cpf" class="form-control" [textMask]="{mask: cpfMask}"/>
+          </div>
+          <div class="col-md-8 mb-3">
+            <label for="nome">Nome:</label>
+            <input type="text" formControlName="nome" id="nome" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3 mb-3" formGroupName="uf">
+            <label for="uf">UF:</label>
+            <select id="uf" class="form-control" formControlName="id" (change)="buscarMunicipiosPorUF(clienteForm.get('uf.id')?.value)">
+             <option [value]='0'></option>
+             <option *ngFor="let uf of ufs | async" value= {{uf.id}}> {{uf.uf}} </option>
+             </select>
+          </div> 
+          <div class="col-md-9 mb-3" formGroupName="municipio">
+           <label for="municipio">Município:</label>
+           <select id="municipio" formControlName="id" class="form-control">
+             <option [value]='0'></option>
+             <option *ngFor="let municipio of municipiosFiltrados" value={{municipio.id}}> {{municipio.nomeMunicipio}} </option>
+           </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <button class="btn btn-dark shadow border-0 my-4">
+              <i class="fas fa-search"><b> Consultar</b></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      </div>
+      <div class="form-row">
+        <div class="col-md-1">
+          <button class="btn-light shadow border-0 my-4" (click)="gerarRelatorio(pessoas, 'pdf')">
+            <i class="fas fa-file-pdf"><b> PDF</b></i>
+          </button> 
+        </div>
+        <div class="col-md-1">
+          <button class="btn-light shadow border-0 my-4" (click)="gerarRelatorio(pessoas, 'html')">
+            <i class="far fa-file-code"><b> HTML</b></i>
+          </button>  
+        </div>
+        <div class="col-md-1">
+          <button class="btn-light shadow border-0 my-4" (click)="gerarRelatorio(pessoas, 'csv')">
+            <i class="fas fa-file-csv"><b> CSV</b></i>
+          </button> 
+        </div>
+        <div class="col-md-1">
+          <button class="btn-light shadow border-0 my-4" (click)="gerarRelatorio(pessoas, 'xlsx')">
+            <i class="fas fa-file-excel"><b> XLSX</b></i>
+          </button> 
+        </div>
+      </div>
+      <div class="form-row">
+      <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+      <table *ngIf="pessoas" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Email</th>
+            <th scope="col">Data de Nascimento</th>
+            <th scope="col">Enviar</th>
+            <th scope="col">Pagar</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pessoa of pessoas">
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.cpf }}</td>
+            <td>{{ pessoa.usuario.email }}</td>
+            <td>{{ pessoa.dataNascimento | date: 'dd/MM/yyyy'}}</td>
+            <td>                
+              <button class="btn ml-2" (click)="onEnviarEmail(pessoa)">
+                <i class="fas fa-envelope-square"></i>
+              </button>    
+            </td>
+            <td>                
+              <button class="btn ml-2" (click)="onPagar(pessoa.id ? pessoa.id : 0)">
+                <i class="fas fa-pager"></i>
+              </button>    
+            </td>
+            <td>                
+                <button class="btn ml-2" (click)="onEdit(pessoa.id ? pessoa.id : 0)">
+                    <i class="fas fa-edit"></i>
+                </button>    
+            </td>
+            <td>
+                <button class="btn ml-2" (click)="onDelete(pessoa)">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+    </div>     
+  </div>
+  

@@ -4,8 +4,6 @@ import { TokenStorageService } from '../helpers/token-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertModalService } from '../../shared/alert-modal.service';
-import { SocialAuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider, VKLoginProvider } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { AppConstants } from '../../shared/app.constants';
 
@@ -39,8 +37,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private modal: AlertModalService,
     private authService: AuthService,
-    private tokenStorage: TokenStorageService,
-    private socialAuthService: SocialAuthService
+    private tokenStorage: TokenStorageService
   ) { }
 
   ngOnInit(): void {

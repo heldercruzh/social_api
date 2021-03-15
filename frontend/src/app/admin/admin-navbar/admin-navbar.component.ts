@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../auth/helpers/token-storage.service';
-import { SocialAuthService } from "angularx-social-login";
 
 
 declare interface RouteInfo {
@@ -27,8 +26,7 @@ export class AdminNavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public tokenStorageService: TokenStorageService,
-    private socialAuthService: SocialAuthService
+    public tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +38,6 @@ export class AdminNavbarComponent implements OnInit {
 
   public logout(): void {
     this.tokenStorageService.signOut();
-    this.socialAuthService.signOut();
     window.location.reload();
     this.router.navigate(['/auth']);
   }

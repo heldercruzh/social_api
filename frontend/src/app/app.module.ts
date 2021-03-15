@@ -40,14 +40,6 @@ import { authInterceptorProviders } from './auth/helpers/auth.interceptor';
 // To use captcha
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from 'angularx-social-login';
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,30 +73,9 @@ import {
     TextMaskModule,
     SharedModule,
     RecaptchaModule,
-    RecaptchaFormsModule,
-    SocialLoginModule
+    RecaptchaFormsModule
   ],
-  providers: [
-    authInterceptorProviders,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '1018977001682-rsl0j4f0aaar7iposnq55418mfgisaf9.apps.googleusercontent.com'
-            )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
-        ]
-      } as SocialAuthServiceConfig,
-    }
-  ],
+  providers: [ authInterceptorProviders ],
   bootstrap: [ AppComponent ],
   entryComponents: [ ConfirmModalComponent, AlertModalComponent ]
 })

@@ -22,7 +22,6 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@types/file-saver": "^2.0.1",
     "angular2-text-mask": "^9.0.0",
-    "angularx-social-login": "^3.5.4",
     "bootstrap": "^4.5.3",
     "file-saver": "^2.0.5",
     "ng-recaptcha": "^7.0.1",

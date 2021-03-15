@@ -23,7 +23,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [AuthGuard]},
+    canActivate: [AuthGuard]
+  },
   {
     path: 'pagamento/:id',
     component: PagamentoComponent,

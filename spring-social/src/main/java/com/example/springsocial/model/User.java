@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -35,67 +36,48 @@ public class User {
 
     private String providerId;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "nome"))
+    private List<Role> roles;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    public String getName() {
-        return name;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getEmail() { return email; }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    public String getImageUrl() { return imageUrl; }
 
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
-    }
+    public Boolean getEmailVerified() { return emailVerified; }
 
-    public String getPassword() {
-        return password;
-    }
+    public void setEmailVerified(Boolean emailVerified) { this.emailVerified = emailVerified; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getPassword() { return password; }
 
-    public AuthProvider getProvider() {
-        return provider;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
+    public AuthProvider getProvider() { return provider; }
 
-    public String getProviderId() {
-        return providerId;
-    }
+    public void setProvider(AuthProvider provider) { this.provider = provider; }
 
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
+    public String getProviderId() { return providerId; }
+
+    public void setProviderId(String providerId) { this.providerId = providerId; }
+
+    public List<Role> getRoles() { return roles; }
+
+    public void setRoles(List<Role> roles) { this.roles = roles; }
 }

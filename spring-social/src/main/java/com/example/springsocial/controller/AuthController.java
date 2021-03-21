@@ -2,11 +2,13 @@ package com.example.springsocial.controller;
 
 import com.example.springsocial.exception.BadRequestException;
 import com.example.springsocial.model.AuthProvider;
+import com.example.springsocial.model.Role;
 import com.example.springsocial.model.User;
 import com.example.springsocial.payload.ApiResponse;
 import com.example.springsocial.payload.AuthResponse;
 import com.example.springsocial.payload.LoginRequest;
 import com.example.springsocial.payload.SignUpRequest;
+import com.example.springsocial.repository.RoleRepository;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.example.springsocial.controller.UserController;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
@@ -68,7 +71,7 @@ public class AuthController {
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
-
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User result = userRepository.save(user);

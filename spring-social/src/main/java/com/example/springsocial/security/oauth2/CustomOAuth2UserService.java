@@ -2,6 +2,7 @@ package com.example.springsocial.security.oauth2;
 
 import com.example.springsocial.exception.OAuth2AuthenticationProcessingException;
 import com.example.springsocial.model.AuthProvider;
+import com.example.springsocial.model.Role;
 import com.example.springsocial.model.User;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.UserPrincipal;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -70,6 +72,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
 

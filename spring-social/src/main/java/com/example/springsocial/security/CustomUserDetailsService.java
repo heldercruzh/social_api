@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email)
@@ -37,11 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with email : " + email)
         );
-
-       /* Optional<List<Role>> rolesOptional = roleRepository.findRoleByIdUser(user.getId());
-        if(rolesOptional.isPresent()) {
-            user.setRoles(rolesOptional.get());
-        }*/
 
         return UserPrincipal.create(user);
     }

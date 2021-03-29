@@ -2,6 +2,9 @@ package com.example.springsocial.security;
 
 import com.example.springsocial.model.Role;
 import com.example.springsocial.model.User;
+import com.example.springsocial.repository.RoleRepository;
+import com.example.springsocial.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,11 +27,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        //List<GrantedAuthority> authorities = Collections.
-        //        singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
-
-        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
 
         return new UserPrincipal(
                 user.getId(),

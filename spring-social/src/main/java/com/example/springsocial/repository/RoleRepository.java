@@ -13,11 +13,4 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Query(value="SELECT * FROM role tb1 INNER JOIN user_role tb2 ON tb1.nome = tb2.role_id"+
-            " WHERE tb2.user_id = :id)"
-            , nativeQuery = true)
-    Optional<List<Role>> findRoleByIdUser(
-            @Param("id") Long id
-    );
-
 }

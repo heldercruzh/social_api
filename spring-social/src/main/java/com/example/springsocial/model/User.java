@@ -36,13 +36,13 @@ public class User {
 
     private String providerId;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_role",
+            name = "role_users",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "nome"))
+                    name = "role_nome", referencedColumnName = "nome"))
     private List<Role> roles;
 
     public Long getId() { return id; }

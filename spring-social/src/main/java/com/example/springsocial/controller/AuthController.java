@@ -25,6 +25,8 @@ import com.example.springsocial.controller.UserController;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RestController

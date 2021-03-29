@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       err => {
+        this.modal.showAlertDanger(err.error.message || "Erro não identificado, contate o administrador!");
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }

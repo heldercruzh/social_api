@@ -89,6 +89,17 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  public goKeycloak(): void {
+    this.authService.keycloak().subscribe(
+      data => {
+        this.modal.showAlertSuccess("OK, Token gerado: "+data);
+      },
+      err => {
+        this.modal.showAlertDanger("Erro não identificado, contate o administrador: "+ err.error.message);
+      }
+    );
+  }
+
   public goForgetPassword(): void {
     this.router.navigate(['/forgetpassword']);
   }

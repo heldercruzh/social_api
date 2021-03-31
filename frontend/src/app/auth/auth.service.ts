@@ -33,4 +33,24 @@ export class AuthService {
     return this.http.post(AppConstants.AUTH_API + 'signup', user, httpOptions);
   }
   
+  public keycloak() {
+
+    var client_id: string = 'login-app'; // client_id:<your_client_id>
+    var username: string = 'user1'; // username:<your_username> 
+    var password: string = '123'; // password:<your_password>
+    var grant_type: string = 'zaq1! QAZ'; //grant_type:password
+
+    const httpOptionsKeycloak = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'x-www-form-urlencoded',
+        
+    })
+    };
+
+
+    //http://localhost:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token
+    return this.http.post('http://localhost:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token', {username, password, client_id, grant_type}, httpOptionsKeycloak);
+  }
+
+  
 }
